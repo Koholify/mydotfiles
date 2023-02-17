@@ -7,12 +7,23 @@ keyset('n', '<f4>', ':%bdelete|edit #|bd # |normal `"|zz<cr>', {remap = false})
 keyset('n', '<f5>', ':NvimTreeToggle<cr>', {remap = false})
 keyset('n', '<c-q>', ':q!<cr>', {remap = false})
 keyset('n', '<leader>z', ':tabnew<cr>', {remap = false})
+keyset('n', '<leader>e', ':e .<cr>', {remap = false})
+
+--- Windows
+keyset('n', '<leader>v', ':vsplit<cr>', {remap = false})
+keyset('n', '<leader>s', ':split<cr>', {remap = false})
+keyset('n', '<leader><left>', '<c-w>h', {remap = false})
+keyset('n', '<leader><right>', '<c-w>l', {remap = false})
+keyset('n', '<leader><down>', '<c-w>j', {remap = false})
+keyset('n', '<leader><up>', '<c-w>k', {remap = false})
 
 --- Terminal
 keyset('n', '<f6>', ':ToggleTerm direction=float<cr>', {remap = false})
 keyset('t', '<c-n>', '<c-\\><c-n>', {remap = false})
 keyset('t', '<f6>', '<cmd>:ToggleTerm<cr>')
 keyset('n', '<leader>cm', ':TermExec cmd="cmake . && cmake --build ." direction=float<cr>', {remap = false})
+keyset('n', '<leader>t', ':term<cr>', {remap = false})
+keyset('t', '<c-q>', '<cmd>:q!<cr>')
 
 --- Tabs
 keyset('n', '<tab>', 'gt', {remap = false})

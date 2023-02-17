@@ -1,11 +1,11 @@
 vim = vim
 
+require('lualine').setup()
+require('toggleterm').setup()
 require('mappings')
 require('plugins')
 require('coc')
 require('tree')
-require('lualine').setup()
-require('toggleterm').setup()
 
 vim.opt.cursorline = true
 vim.opt.number = true
