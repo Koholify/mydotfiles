@@ -1,11 +1,12 @@
-vim = vim
+local vim = vim
 
 require('lualine').setup()
 require('toggleterm').setup()
 require('mappings')
 require('plugins')
-require('coc')
 require('tree')
+require('cmp-conf')
+require("lsp")
 
 vim.opt.cursorline = true
 vim.opt.number = true
