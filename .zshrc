@@ -101,6 +101,10 @@ source $ZSH/oh-my-zsh.sh
 # Example aliases
 alias zshconfig="nvim ~/.zshrc"
 alias ohmyzsh="nvim ~/.oh-my-zsh"
+alias ll="ls -la"
+alias la="ls -a"
+alias vi="nvim"
+alias python="python3"
 
 source $ZSH/custom/themes/powerlevel10k/powerlevel10k.zsh-theme
 

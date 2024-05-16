@@ -4,7 +4,6 @@ require("mason-lspconfig").setup()
 -- *:h mason-lspconfig-automatic-server-setup*
 require("mason-lspconfig").setup_handlers {
   function (server)
-
     local settings = {}
     if server == "lua_ls" then
       settings.Lua = require("lsp.settings.luals").settings.Lua

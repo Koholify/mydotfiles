@@ -50,7 +50,7 @@ cmp.setup({
       ['<C-f>'] = cmp.mapping.scroll_docs(1),
       ['<C-p>'] = cmp.mapping.complete(),
       ['<C-e>'] = cmp.mapping.abort(),
-      ['<CR>'] = cmp.mapping.confirm({ select = true }), -- Accept currently selected item. Set `select` to `false` to only confirm explicitly selected items.
+      ['<CR>'] = cmp.mapping.confirm({ select = false }), -- Accept currently selected item. Set `select` to `false` to only confirm explicitly selected items.
 
       ['<Tab>'] = cmp.mapping(function(fallback)
         if cmp.visible() then
@@ -90,6 +90,7 @@ cmp.setup({
           path = '[Path]',
           nvim_lsp = '[LSP]',
           nvim_lua = '[NV_LUA]',
+          orgmode = '[ORG]',
         })[entry.source.name]
       return vim_item
     end,
@@ -97,6 +98,7 @@ cmp.setup({
   sources = {
     { name = 'nvim_lsp' },
     { name = 'nvim_lua' },
+    { name = 'orgmode' },
     { name = 'luasnip' }, -- For luasnip users.
     { name = 'buffer' },
     { name = 'path' },
