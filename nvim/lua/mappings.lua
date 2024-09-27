@@ -9,6 +9,12 @@ keyset('n', '<c-q>', ':q!<cr>', {remap = false})
 keyset('n', '<leader>z', ':tabnew<cr>', {remap = false})
 keyset('n', '<leader>e', ':NvimTreeFocus<cr>', {remap = false})
 
+local function go_default_org_file()
+  local p = require('orgmode.config').org_default_notes_file;
+  vim.cmd.edit(p)
+end
+keyset('n', '<leader>ogd', go_default_org_file, {remap = false})
+
 --- Windows
 keyset('n', '<leader>v', ':vsplit<cr>', {remap = false})
 keyset('n', '<leader>s', ':split<cr>', {remap = false})
