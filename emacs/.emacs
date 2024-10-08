@@ -9,23 +9,37 @@
  '(eldoc-echo-area-prefer-doc-buffer 'maybe)
  '(eldoc-echo-area-use-multiline-p nil)
  '(initial-buffer-choice "~/.emacs.d/org/main.org")
- '(package-selected-packages '(csv-mode company)))
-(custom-set-faces
- ;; custom-set-faces was added by Custom.
- ;; If you edit it by hand, you could mess it up, so be careful.
- ;; Your init file should contain only one such instance.
- ;; If there is more than one, they won't work right.
- '(default ((t (:inherit nil :extend nil :stipple nil :background "#242424" :foreground "#f6f3e8" :inverse-video nil :box nil :strike-through nil :overline nil :underline nil :slant normal :weight regular :height 98 :width normal :foundry "outline" :family "Hack NFM"))))
- '(eglot-highlight-symbol-face ((t (:inherit bold)))))
-(tool-bar-mode -1)
-(menu-bar-mode -1)
-(scroll-bar-mode -1)
+ '(package-selected-packages '(magit company csv-mode)))
+
+(global-display-line-numbers-mode 1)
+(fido-mode 1)
+(fido-vertical-mode 1)
 
 (add-to-list 'load-path "~/.emacs.d/custom-packages/emmet-mode")
 (require 'emmet-mode)
 
 (add-hook 'sgml-mode-hook 'emmet-mode)
 (add-hook 'css-mode-hook 'emmet-mode)
+
+(defun my-insert-tab-char () (interactive) (insert "\t"))
+
+(defun my-set-tsv-mode ()
+    (when (and (stringp buffer-file-name)
+        (string-match "\\.tsv\\'" buffer-file-name))
+            (setq-local csv-separators '("\t"))
+            (setq-local csv-separator-chars '(?\t))
+            (setq-local csv--skip-chars "^\n\t")
+            (setq-local csv-separator-regexp "\t")
+            (local-set-key (kbd "C-c C-i") 'my-insert-tab-char)))
+
+(add-hook 'tsv-mode-hook 'csv-mode)
+(add-hook 'csv-mode-hook 'my-set-tsv-mode)
+(font-lock-add-keywords 'csv-mode
+   '(("\\<[[:digit:]]+/f?[[:digit:]]+\\>\\|\\<[[:digit:]+\\.?[_[:digit:]]*\\>" 0 'font-lock-property-name-face t)
+     ("@[_[:alnum:]]+" 0 'font-lock-builtin-face t)))
+
+(add-hook 'icomplete-minibuffer-setup-hook (lambda() (local-set-key (kbd "TAB") 'icomplete-force-complete)))
+(global-set-key (kbd "C-S-y") 'duplicate-line)
 
 (add-hook 'c-mode-common-hook (lambda() (local-set-key (kbd "C-c C-o") 'ff-find-other-file)))
 (add-hook 'c-mode-common-hook (lambda() (company-mode t)))
