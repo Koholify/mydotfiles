@@ -18,8 +18,7 @@
   :hook
   (eldoc-mode-hook . eldoc-box-hover-at-point-mode))
 
-(use-package exec-path-from-shell
-  :init
-  (exec-path-from-shell-initialize))
-
-(add-hook 'csharp-mode-hook (lambda() (auto-save-mode -1)))
+(if (string= "darwin" system-type)
+    (use-package exec-path-from-shell
+      :init
+      (exec-path-from-shell-initialize)))

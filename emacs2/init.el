@@ -1,6 +1,10 @@
 ;; -*- lexical-binding: t; -*-
 
-(setq custom-file "~/.emacs.d/config.el")
+(setq emacs-path-custom (if (string= "windows-nt" system-type)
+			    "~/.emacs.d"
+			  "~/.config/emacs"))
+
+(setq custom-file (file-name-concat emacs-path-custom "config.el"))
 (load-file custom-file)
 
 (require 'package)
