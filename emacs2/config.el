@@ -8,7 +8,6 @@
    '("7478bc74ae421ad2103d4239176f71e6d55ef0be4eb874c328b862af5b93a857"
      "95b0bc7b8687101335ebbf770828b641f2befdcf6d3c192243a251ce72ab1692"
      default))
- '(exec-path-from-shell-variables '("PATH"))
  '(initial-buffer-choice "~/.emacs.d/init.el")
  '(org-capture-templates
    '(("t" "Todo" entry (file+headline "~/org/todo.org" "Inbox")
