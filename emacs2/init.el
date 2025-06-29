@@ -20,10 +20,14 @@
 
 (mapc 'load (file-expand-wildcards "~/.emacs.d/package-configs/*.el"))
 
-(load-theme 'molokai)
+(if (string= "windows-nt" system-type)
+  (let ((sys "windows"))
+    (setenv "PATH" (with-temp-buffer
+                     (insert-file-contents "~/.emacs.d/.env")
+                     (goto-char (point-min))
+                     (buffer-string)))
+    (setq exec-path (split-string (getenv "PATH") ";"))))
 
-(setenv "PATH" (with-temp-buffer
-  (insert-file-contents "~/.emacs.d/.env")
-  (goto-char (point-min))
-  (buffer-string)))
-(setq exec-path (split-string (getenv "PATH") ";"))
+(add-to-list 'backup-directory-alist `(("." . ,(file-name-concat emacs-path-custom "backups"))))
+(setq initial-buffer-choice (file-name-concat emacs-path-custom "init.el"))
+(load-theme 'molokai)
