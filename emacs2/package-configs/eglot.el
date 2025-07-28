@@ -23,6 +23,13 @@
   )
 (use-package flycheck
   :ensure t)
+
 (use-package flycheck-eglot
   :after (flycheck eglot)
   :config (global-flycheck-eglot-mode 1))
+
+(defun my/csharp-mode-setup ()
+  "Setup csharp mode"
+  (auto-save-mode -1))
+
+(add-hook 'csharp-mode-hook 'my/csharp-mode-setup)

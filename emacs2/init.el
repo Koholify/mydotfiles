@@ -1,6 +1,12 @@
 ;; -*- lexical-binding: t; -*-
 
-(setq custom-file "~/.emacs.d/config.el")
+(setq emacs-path-custom (if (string= "windows-nt" system-type)
+			    "~/.emacs.d"
+			  "~/.config/emacs"))
+
+(add-to-list 'backup-directory-alist `(("." . ,(file-name-concat emacs-path-custom "backups"))))
+(setq initial-buffer-choice (file-name-concat emacs-path-custom "init.el"))
+(setq custom-file (file-name-concat emacs-path-custom "config.el"))
 (load-file custom-file)
 
 (require 'package)
@@ -64,3 +70,12 @@
   "r" #'my/toggle-frame-size
   "2" #'split-root-window-below
   "3" #'split-root-window-right)
+
+(if (string= "windows-nt" system-type)
+  (let ((sys "windows"))
+    (setenv "PATH" (with-temp-buffer
+                     (insert-file-contents "~/.emacs.d/.env")
+                     (goto-char (point-min))
+                     (buffer-string)))
+    (setq exec-path (split-string (getenv "PATH") ";"))))
+
