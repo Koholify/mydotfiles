@@ -20,18 +20,12 @@
 (scroll-bar-mode -1)
 (menu-bar-mode -1)
 (repeat-mode 1)
-(rainbow-delimiters-mode 1)
+(rainbow-delimiters-mode t)
 (column-number-mode 1)
 
 (mapc 'load (file-expand-wildcards "~/.emacs.d/package-configs/*.el"))
 
-(load-theme 'junio t)
-
-(setenv "PATH" (with-temp-buffer
-  (insert-file-contents "~/.emacs.d/.env")
-  (goto-char (point-min))
-  (buffer-string)))
-(setq exec-path (split-string (getenv "PATH") ";"))
+(load-theme 'kaolin-galaxy t)
 
 (defvar my/frame-size-list
   '((80 40) (120 70) (280 80))
