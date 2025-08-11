@@ -19,7 +19,7 @@
                     "--header-insertion=never")))
 
   :hook
-  (eglot-managed-mode-hook . my/eglot-managed-setup)
+  (eglot-managed-mode . my/eglot-managed-setup)
   )
 (use-package flycheck
   :ensure t)
