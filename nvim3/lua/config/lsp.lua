@@ -10,7 +10,7 @@ vim.lsp.config('clangd', {
 })
 vim.lsp.enable('clangd')
 
-vim.lsp.enable('ts_ls')
+--vim.lsp.enable('ts_ls')
 
 vim.api.nvim_create_autocmd('LspAttach', {
 	callback = function(ev)

@@ -41,8 +41,7 @@ Projective.get_root = function()
 		if
 			root then return root
 		else
-			--vim.fs.dirname(vim.api.nvim_buf
-			return vim.cmd[[pwd]]
+			return vim.fn.getcwd(0)
 		end
 	end
 end
@@ -60,7 +59,7 @@ Projective.enable = function(cmd)
 end
 
 Projective.compile = function()
-	vim.cmd[[:make<cr>]]
+	vim.cmd[[:make]]
 end
 
 Projective.run = function(f)
