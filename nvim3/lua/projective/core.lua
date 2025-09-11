@@ -54,17 +54,39 @@ Projective.enable = function(cmd)
 	end
 
 	vim.api.nvim_set_current_dir(Projective.root_dir)
-	Projective.compile_command = cmd or Projective.command
-	vim.cmd("set makeprg=" .. table.concat(Projective.command, "\\ "))
+	if type(cmd) == "string" or type(cmd) == "table" then
+		Projective.compile_command = cmd
+	else
+		Projective.compile_command = Projective.command
+	end
+
+	if type(cmd) == "string" then
+		vim.cmd("set makeprg=" .. string.gsub(Projective.compile_command, " ", "\\ "))
+	elseif type(cmd) == "table" then
+		vim.cmd("set makeprg=" .. table.concat(Projective.compile_command, "\\ "))
+	end
+
+	vim.print({cd = Projective.root_dir, cmd = Projective.compile_command})
 end
 
 Projective.compile = function()
-	vim.cmd[[:make]]
+	if Projective.root_dir then
+		vim.api.nvim_set_current_dir(Projective.root_dir)
+		vim.cmd[[:make]]
+	else
+		vim.print("Projective Workspace Not Enabled")
+	end
 end
 
 Projective.run = function(f)
-	Projective.run_target = f or Projective.run_target
-	vim.cmd(":!" .. Projective.run_target)
+	if f and #f > 0 then
+		if type(f) == "string" then
+			f = { f }
+		end
+
+		Projective.run_target = f
+	end
+	vim.cmd(":!" .. table.concat(Projective.run_target, " "))
 end
 
 Projective.set_target = function(exe)

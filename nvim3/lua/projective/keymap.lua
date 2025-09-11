@@ -1,13 +1,26 @@
 local P = require("projective.core")
 
-vim.keymap.set('n', '<leader>pe', P.enable)
+vim.keymap.set('n', '<leader>pe', ':ProjectiveEnable')
 vim.keymap.set('n', '<leader>pc', P.compile)
-vim.keymap.set('n', '<leader>px', P.run)
-vim.keymap.set('n', '<leader>pt', P.set_target)
+vim.keymap.set('n', '<leader>px', ':ProjectiveRun')
+vim.keymap.set('n', '<leader>pt', ':ProjectiveSetTarget ')
 
-vim.api.nvim_create_user_command('ProjectiveEnable', function(t)
-	if t.nargs > 0 then P.enable(t.args)
-	else P.enable() end end, {})
-vim.api.nvim_create_user_command('ProjectiveCompile', function() P.compile() end, {})
-vim.api.nvim_create_user_command('ProjectiveRun', function(t) P.run(t.args) end, {})
-vim.api.nvim_create_user_command('ProjectiveSetTarget', function(t) P.run(t.args) end, {})
+vim.api.nvim_create_user_command('ProjectiveEnable',
+	function(t)
+		if #t.fargs > 0 then P.enable(t.args)
+		else P.enable() end
+	end,
+	{nargs = "*", complete = "shellcmdline"})
+vim.api.nvim_create_user_command('ProjectiveCompile',
+	function() P.compile() end,
+	{})
+vim.api.nvim_create_user_command('ProjectiveRun',
+	function(t) P.run(t.args) end,
+	{nargs = "*", complete = "shellcmdline"})
+vim.api.nvim_create_user_command('ProjectiveSetTarget',
+	function(t) if #t.args > 0 then P.set_target(t.args) end end,
+	{nargs = "*", complete = "shellcmdline"})
+vim.api.nvim_create_user_command('ProjectiveInfo',
+	function() vim.print(P) end,
+	{})
+
