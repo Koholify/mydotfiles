@@ -8,6 +8,7 @@ local function on_attach(bufnr)
 	api.config.mappings.default_on_attach(bufnr)
 	vim.keymap.set('n', '<CR>',  function() api.node.open.replace_tree_buffer() end, opts('Open'))
 	vim.keymap.set('n', 'o',  function() api.node.open.replace_tree_buffer() end, opts('Open'))
+	vim.keymap.set('n', 'G',  function() api.tree.reload(); api.tree.change_root(vim.fn.getcwd(0)); end, opts('Reload and Reset Root'))
 end
 
 return {
@@ -20,9 +21,20 @@ return {
 			{ '<leader>fc', nil, desc = 'Close file tree' },
 		},
 		config = function()
-			require('nvim-tree').setup({ on_attach = on_attach })
+			require('nvim-tree').setup({
+				on_attach = on_attach,
+				actions = {
+					change_dir = {
+						enable = false,
+					},
+				},
+			})
 			local api = require('nvim-tree.api')
-			vim.keymap.set('n', '<leader>ff', function() api.tree.open({current_window = true, find_file = true}) end, {desc = 'Open file tree'})
+			vim.keymap.set('n', '<leader>ff',
+				function()
+					api.tree.open({current_window = true, find_file = true})
+				end,
+				{desc = 'Open file tree'})
 			vim.keymap.set('n', '<leader>fc', api.tree.close, {desc = 'Close file tree'} )
 		end,
 	},

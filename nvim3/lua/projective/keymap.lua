@@ -1,9 +1,9 @@
 local P = require("projective.core")
 
-vim.keymap.set('n', '<leader>pe', ':ProjectiveEnable')
-vim.keymap.set('n', '<leader>pc', P.compile)
-vim.keymap.set('n', '<leader>px', ':ProjectiveRun')
-vim.keymap.set('n', '<leader>pt', ':ProjectiveSetTarget ')
+vim.keymap.set('n', '<leader>pe', ':ProjectiveEnable', {desc = "Enable Projective"})
+vim.keymap.set('n', '<leader>pc', P.compile, {desc = "Compile With Projective"})
+vim.keymap.set('n', '<leader>px', ':ProjectiveRun', {desc = "Run Proj From Projective Root"})
+vim.keymap.set('n', '<leader>pt', ':ProjectiveSetTarget ', {desc = "Set Target For Projective Run"})
 
 vim.api.nvim_create_user_command('ProjectiveEnable',
 	function(t)
