@@ -18,7 +18,7 @@ vim.api.nvim_create_autocmd('LspAttach', {
 		if client and client:supports_method('textDocument/completion') then
 			vim.opt.completeopt = { 'menu', 'menuone', 'noinsert', 'fuzzy', 'popup' }
 			vim.lsp.completion.enable(true, client.id, ev.buf, {autotrigger = true})
-			vim.keymap.set('i', '<C-l>', function() vim.lsp.completion.get() end)
+			vim.keymap.set('i', '<C-Space>', function() vim.lsp.completion.get() end)
 		end
 	end,
 })

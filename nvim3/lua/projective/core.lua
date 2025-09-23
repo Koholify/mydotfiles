@@ -60,9 +60,9 @@ Projective.enable = function(cmd)
 		Projective.compile_command = Projective.command
 	end
 
-	if type(cmd) == "string" then
+	if type(Projective.compile_command) == "string" then
 		vim.cmd("set makeprg=" .. string.gsub(Projective.compile_command, " ", "\\ "))
-	elseif type(cmd) == "table" then
+	elseif type(Projective.compile_command) == "table" then
 		vim.cmd("set makeprg=" .. table.concat(Projective.compile_command, "\\ "))
 	end
 

@@ -17,3 +17,7 @@ keyset('n', '<leader>dl', vim.diagnostic.setloclist, {desc = "View File Diagnost
 keyset('n', '<leader>x1', ':only<cr>', {desc = "Close Other Windows"})
 keyset('n', '<leader>qq', toggle_quickfixlist, {desc = "Toggle Quickfix list"})
 
+keyset('n', '<leader>qt', ':tab term<cr>i', {desc = "Open terminal in new tab"})
+keyset('t', '<C-Space>', '<C-\\><C-N>', {desc = "Exit terminal mode"})
+keyset('t', '<C-t>', '<C-\\><C-N>g<Tab>', {desc = "Exit terminal mode"})
+
