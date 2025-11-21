@@ -108,13 +108,48 @@ end
 
 Projective.run_async = function(f)
 	Projective.set_target(f)
-
-	vim.cmd("vs")
-	local buf_num = vim.api.nvim_create_buf(true, true)
 	local buf_name = table.concat(Projective.run_target, " ")
-	vim.api.nvim_buf_set_name(buf_num, buf_name)
-	vim.api.nvim_buf_set_keymap(buf_num, "n", "q", ":bd<cr>", {desc="quit buffer"})
-	vim.api.nvim_win_set_buf(vim.api.nvim_get_current_win(), buf_num)
+	print(buf_name)
+
+	local buf_num = nil
+	local buffers = vim.api.nvim_list_bufs()
+
+	for _,bn in pairs(buffers) do
+		local name = vim.api.nvim_buf_get_name(bn)
+		local rel_name = vim.fs.relpath(vim.fn.getcwd(0, 0), name)
+		local loaded = vim.api.nvim_buf_is_loaded(bn)
+		if loaded and (rel_name == buf_name) then
+			buf_num = bn
+			break
+		end
+	end
+
+	print(buf_num)
+	if not buf_num then
+		vim.cmd("vs")
+		buf_num = vim.api.nvim_create_buf(true, true)
+		vim.api.nvim_buf_set_name(buf_num, buf_name)
+		vim.api.nvim_buf_set_keymap(buf_num, "n", "q", ":bd<cr>", {desc="quit buffer"})
+		vim.api.nvim_win_set_buf(0, buf_num)
+	else
+		local buffer_opened = false
+		local tab = vim.api.nvim_get_current_tabpage()
+		for _,wid in pairs(vim.api.nvim_tabpage_list_wins(tab)) do
+			if vim.api.nvim_win_get_buf(wid) == buf_num then
+				buffer_opened = true
+				vim.api.nvim_tabpage_set_win(0, wid)
+				break
+			end
+		end
+
+		if not buffer_opened then
+			vim.cmd("vs")
+			vim.api.nvim_win_set_buf(0, buf_num)
+		end
+
+		vim.api.nvim_buf_set_lines(buf_num, 0, -1, true, {})
+	end
+
 
 	vim.schedule(function()
 		vim.api.nvim_buf_set_lines(buf_num, -2, -2, false, {
