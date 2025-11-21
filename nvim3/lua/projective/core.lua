@@ -109,8 +109,6 @@ end
 Projective.run_async = function(f)
 	Projective.set_target(f)
 	local buf_name = table.concat(Projective.run_target, " ")
-	print(buf_name)
-
 	local buf_num = nil
 	local buffers = vim.api.nvim_list_bufs()
 
@@ -124,7 +122,6 @@ Projective.run_async = function(f)
 		end
 	end
 
-	print(buf_num)
 	if not buf_num then
 		vim.cmd("vs")
 		buf_num = vim.api.nvim_create_buf(true, true)
